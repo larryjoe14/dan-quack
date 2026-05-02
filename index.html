@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#2BB5B5" />
+  <title>Quack, Quack, Pippin: Adventures with the Quack Pack</title>
+  <meta name="description" content="Join Pippin, an adventurous backpacking duckling, and his forest friends as they form the Quack Pack to discover, explore, and learn about the world." />
+  <meta property="og:title" content="Quack, Quack, Pippin" />
+  <meta property="og:description" content="Adventures, friendship, and discovery with Pippin and the Quack Pack." />
+  <meta property="og:image" content="/assets/intro_poster.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="/assets/QQP_LOGO_v2.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260501a" />
+</head>
+<body>
+
+  <!-- ============== NAVIGATION ============== -->
+  <header class="nav" id="top">
+    <a href="#top" class="nav__brand" aria-label="Quack, Quack, Pippin home">
+      <img src="assets/QQP_LOGO_v2.png" alt="" class="nav__badge" />
+      <span class="nav__wordmark">Quack, Quack, Pippin</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#characters">Characters</a>
+      <a href="#parents">For Parents</a>
+      <a href="#adventures">Adventures</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav__right">
+      <a href="#watch" class="nav__cta">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Watch
+      </a>
+      <a href="#mixmash" class="nav__mmm" aria-label="MixMash Media">
+        <img src="assets/MMM_LOGO.png" alt="MixMash Media" />
+      </a>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero">
+    <!-- Parallax sky/forest backdrop -->
+    <div class="hero__sky" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <div class="hero__badge-wrap">
+        <img src="assets/QQP_LOGO_v2.png" alt="Quack, Quack, Pippin logo" class="hero__badge" />
+      </div>
+
+      <p class="hero__eyebrow">A new animated series for curious kids</p>
+      <h1 class="hero__title">
+        Adventure begins<br />with a <em>quack.</em>
+      </h1>
+      <p class="hero__lede">
+        Join Pippin, an adventurous backpacking duckling, and his forest friends as they form the Quack Pack to discover, explore, and learn about the world around them.
+      </p>
+    </div>
+
+    <!-- Featured video, autoplay muted, click-to-unmute -->
+    <div class="hero__showcase">
+      <div class="hero__frame">
+        <video class="hero__video"
+               id="introVideo"
+               src="assets/intro.mp4"
+               poster="assets/intro_poster.jpg"
+               muted
+               loop
+               autoplay
+               playsinline
+               preload="metadata"
+               aria-label="Quack, Quack, Pippin show intro"></video>
+        <button class="hero__sound" id="introSoundBtn" type="button" aria-pressed="false" aria-label="Unmute video">
+          <!-- speaker-muted icon (default state) -->
+          <svg class="icon-muted"   viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9"  x2="17" y2="15"/>
+            <line x1="17" y1="9"  x2="23" y2="15"/>
+          </svg>
+          <!-- speaker-on icon (when unmuted) -->
+          <svg class="icon-unmuted" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+          <span class="sr-only">Tap to enable sound</span>
+        </button>
+        <span class="hero__hint" aria-hidden="true">Tap for sound</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== ABOUT ============== -->
+  <section class="about" id="about">
+    <div class="about__container">
+      <div class="about__content">
+        <span class="kicker"><span class="dot"></span>About the show</span>
+        <h2 class="h2">Three friends. One pack.<br/>A whole world to discover.</h2>
+        <p class="about__lede">
+          From the sun-scorched dunes of the Sahara to the misty, emerald jungles of the Amazon, the Quack Pack travels to immersive places all over the globe. Every new destination sparkles with wonder. Ancient markets, whispering glaciers, coral gardens, and starlit savannas, where curiosity and learning hide around every corner.
+        </p>
+        <p class="about__body">
+          They don't just visit these places. They listen, ask questions, and discover something new about the world and one another. Along the way, they quickly learn that together, there isn't anything they can't accomplish.
+        </p>
+      </div>
+
+      <figure class="about__media">
+        <img src="assets/SCENE_fall.png" alt="The Quack Pack hiking through autumn mountains" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============== MEET THE PACK ============== -->
+  <section class="pack" id="characters">
+    <div class="pack__container">
+      <span class="kicker kicker--light"><span class="dot"></span>Meet the pack</span>
+      <h2 class="h2 h2--light">The Quack Pack</h2>
+      <p class="pack__lede">
+        Three forest friends who came together to discover their differences, and more importantly, what they have in common.
+      </p>
+
+      <div class="pack__grid">
+        <article class="character">
+          <div class="character__photo">
+            <img src="assets/CHAR_pippin.png" alt="Pippin the duckling explorer" />
+          </div>
+          <div class="character__caption">
+            <p class="character__role">The Explorer</p>
+            <h3 class="character__name">Pippin</h3>
+            <p class="character__desc">
+              An adventurous backpacking duckling with a magnifying glass, a question, and a plan to discover whatever he finds.
+            </p>
+          </div>
+        </article>
+
+        <article class="character">
+          <div class="character__photo">
+            <img src="assets/CHAR_chip.png" alt="Chip the beaver builder" />
+          </div>
+          <div class="character__caption">
+            <p class="character__role">The Builder</p>
+            <h3 class="character__name">Chip</h3>
+            <p class="character__desc">
+              Steady, kind, and always carrying a pencil behind the strap of his overalls. If the pack needs a bridge built or a problem solved, Chip is on it.
+            </p>
+          </div>
+        </article>
+
+        <article class="character">
+          <div class="character__photo">
+            <img src="assets/CHAR_sable.png" alt="Sable the raccoon daredevil" />
+          </div>
+          <div class="character__caption">
+            <p class="character__role">The Daredevil</p>
+            <h3 class="character__name">Sable</h3>
+            <p class="character__desc">
+              Goggles up, tail twitching. Sable is the bold one. Quick on her feet and quicker with a grin, she's the spark that turns a walk into an adventure.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Wave divider -->
+    <svg class="pack__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,40 Q360,80 720,40 T1440,40 L1440,80 L0,80 Z" fill="#fdfaf0"/>
+    </svg>
+  </section>
+
+  <!-- ============== FOR PARENTS / FAQ ============== -->
+  <section class="parents" id="parents">
+    <div class="parents__container">
+      <div class="parents__head">
+        <span class="kicker"><span class="dot"></span>For parents</span>
+        <h2 class="h2">What parents want to know.</h2>
+        <p class="parents__lede">
+          Straight answers about content, age range, and what makes <em>Quack, Quack, Pippin</em> safe and worthwhile for young viewers.
+        </p>
+      </div>
+
+      <div class="faq">
+        <details class="faq__item" open>
+          <summary>
+            <span>What age is the show for?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p><em>Quack, Quack, Pippin</em> is designed for kids ages <strong>3 to 8</strong>. Episodes are rated <strong>TV-Y</strong> and built for preschool and early-elementary viewers, with simple language, clear story arcs, and a gentle pace suitable for the youngest audiences.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>Is the show educational?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>Yes. Every episode weaves natural curiosity into the story, including geography, ecosystems, problem-solving, and social-emotional skills like teamwork, empathy, and patience. Kids learn alongside the Quack Pack, not at them.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>Where can I watch it?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>New episodes are streaming on <strong>YouTube Kids</strong>. The platform offers parental controls, screen-time limits, and a curated feed designed for young viewers.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>Is there any scary or violent content?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>None. There's no violence, no scary villains, and no peril beyond what a curious duckling might find on a hike. Mild conflict is always resolved through teamwork and conversation.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>How long are episodes?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>Episodes are short by design, about <strong>6 to 7 minutes</strong> each, to fit comfortably into young attention spans and parent-approved viewing windows.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>What values does the show teach?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>Friendship, curiosity, kindness, and the idea that being different is a strength. The Quack Pack's superpower is that they don't all think the same way, and they figure things out together.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>Are the characters good role models?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>Each character models a different positive trait: Pippin's curiosity, Chip's patience and craftsmanship, Sable's bravery balanced with care for friends. They make mistakes, apologize, and grow.</p>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary>
+            <span>Does the show include diverse settings?</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </summary>
+          <div class="faq__body">
+            <p>Yes. The Quack Pack travels everywhere from the Sahara to the Amazon to the Pacific coast. Every location is researched for accuracy and presented with respect, celebrating cultures, ecosystems, and ways of life around the world.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== WATCH (preview) ============== -->
+  <section class="watch-preview" id="watch">
+    <div class="watch-preview__container">
+      <div class="watch-preview__copy">
+        <span class="kicker kicker--light"><span class="dot"></span>Now streaming</span>
+        <h2 class="h2 h2--light">Watch Quack, Quack, Pippin<br/>on YouTube Kids.</h2>
+        <p>New episodes, full of curiosity, friendship, and discovery, designed to be safe, playful, and screen-time-worthy for the youngest viewers.</p>
+        <a href="https://www.youtubekids.com/" class="btn btn--watch" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Watch on YouTube Kids
+        </a>
+        <p class="watch-preview__note">Opens in a new tab. Parental guidance recommended for the youngest viewers.</p>
+      </div>
+
+      <a href="https://www.youtubekids.com/" class="watch-preview__frame" target="_blank" rel="noopener" aria-label="Open on YouTube Kids">
+        <img src="assets/QPP_JUST_WHAT_THE_DOC_ORDERED.png" alt="Episode preview" />
+        <span class="watch-preview__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============== ADVENTURES GALLERY ============== -->
+  <section class="adventures" id="adventures">
+    <div class="adventures__head">
+      <span class="kicker"><span class="dot"></span>Adventures</span>
+      <h2 class="h2">A world of wonder, one episode at a time.</h2>
+      <p class="adventures__lede">
+        From mountain peaks to ocean depths, the Quack Pack goes everywhere curiosity takes them.
+      </p>
+    </div>
+
+    <div class="gallery">
+      <figure class="gallery__item gallery__item--wide">
+        <img src="assets/QPP_MOUNTSIN_CLIMB.png" alt="Climbing snowy mountain peaks"/>
+        <figcaption>To the summit</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="assets/QPP_OCEAN_FRIENDS.png" alt="Ocean adventure"/>
+        <figcaption>Ocean friends</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="assets/QPP_CLIMBING_TREES.png" alt="Climbing trees together"/>
+        <figcaption>Climbing trees</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="assets/QPP_LADYBUG.png" alt="Discovering a ladybug"/>
+        <figcaption>Tiny discoveries</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="assets/QPP_FROGGER.png" alt="Hopping across a pond"/>
+        <figcaption>Pondside friends</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="assets/QPP_JUST_WHAT_THE_DOC_ORDERED.png" alt="Just what the doctor ordered"/>
+        <figcaption>Just what the doc ordered</figcaption>
+      </figure>
+      <figure class="gallery__item gallery__item--wide gallery__item--campfire">
+        <img src="assets/QPP_CSAMPGROUND_NIGHT.png" alt="Campground at night under the stars"/>
+        <figcaption>Campfire stories under the stars</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============== WATCH (bottom CTA) ============== -->
+  <section class="watch-cta">
+    <div class="watch-cta__container">
+      <div class="watch-cta__copy">
+        <span class="kicker kicker--light"><span class="dot"></span>Now streaming</span>
+        <h2 class="h2 h2--light">Ready to join the pack?</h2>
+        <p>Hop in, hop along, and hop on YouTube Kids to start watching new episodes today.</p>
+        <a href="https://www.youtubekids.com/" class="btn btn--watch" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Watch on YouTube Kids
+        </a>
+        <p class="watch-cta__note">Opens in a new tab. Parental guidance recommended for the youngest viewers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CONTACT / SIGN UP ============== -->
+  <section class="contact" id="contact">
+    <div class="contact__grid">
+      <!-- LEFT: Contact the creator -->
+      <div class="contact__copy">
+        <span class="kicker"><span class="dot"></span>Get in touch</span>
+        <h2 class="h2">Contact the creator.</h2>
+        <p>
+          Press, partnerships, fan mail, or just a kind word. Drop a note and the team will get back to you. We read everything.
+        </p>
+        <ul class="contact__list" role="list">
+          <li>
+            <strong>For press inquiries</strong>
+            <span>press@mixmashmedia.com</span>
+          </li>
+          <li>
+            <strong>For licensing &amp; partnerships</strong>
+            <span>partners@mixmashmedia.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: Email signup form with optional message -->
+      <form class="form"
+            id="signup-form"
+            name="signup"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            novalidate>
+        <!-- Netlify Forms wiring -->
+        <input type="hidden" name="form-name" value="signup" />
+        <p hidden><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <div class="form__head">
+          <span class="kicker"><span class="dot"></span>Stay in the loop</span>
+          <h3 class="form__title">Get show updates &amp; new episodes.</h3>
+          <p class="form__sub">Drop your email below. We'll send the occasional note when there's something new from the Quack Pack.</p>
+        </div>
+
+        <div class="form__row">
+          <label for="signup-email">Email</label>
+          <input type="email"
+                 id="signup-email"
+                 name="email"
+                 autocomplete="email"
+                 required
+                 placeholder="you@example.com" />
+        </div>
+
+        <div class="form__row">
+          <label for="signup-message">Message <span class="form__optional">(optional)</span></label>
+          <textarea id="signup-message"
+                    name="message"
+                    rows="4"
+                    placeholder="Anything you'd like to share with the team? (Optional)"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary">
+          Sign me up
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER / MIXMASH ============== -->
+  <footer class="footer">
+    <a id="mixmash" aria-hidden="true"></a>
+    <div class="footer__container">
+      <div class="footer__brand">
+        <img src="assets/MMM_LOGO.png" alt="MixMash Media" />
+      </div>
+      <div class="footer__legal">
+        <p>© 2026 MIX MASH MEDIA, LLC, ALL RIGHTS RESERVED. THE MIX MASH MEDIA, LLC NAME, LOGO, AND ALL ORIGINAL DIGITAL MEDIA CONTENT ARE THE EXCLUSIVE PROPERTY OF MIX MASH MEDIA, LLC. THIS INCLUDES, BUT IS NOT LIMITED TO, ALL CHARACTERS, ARTWORK, AND STORYLINES ASSOCIATED WITH OUR CHILDREN'S ANIMATED SERIES, QUACK QUACK PIPPIN. UNAUTHORIZED USE, REPRODUCTION, OR DISTRIBUTION IS STRICTLY PROHIBITED.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20260501a" defer></script>
+</body>
+</html>
