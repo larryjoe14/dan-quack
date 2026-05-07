@@ -1217,3 +1217,92 @@ h1, h2, h3 {
   }
   .leaf { animation: none; }
 }
+
+/* =========================================================
+   ENTRY ANIMATIONS — handmade pop / zine vocabulary
+   -----------------------------------------------------------
+   Rules of the road:
+   1. Every animation runs ONCE on entry, then leaves the
+      element alone. The IntersectionObserver in script.js
+      adds .is-in and unobserves. No re-animating, no idle
+      bobs, no scroll-linked motion.
+   2. Motion lives at the ACCENT layer — kickers, the marker
+      strike behind "quack", character cards. Architectural
+      elements (h1/h2, hero copy, video frames, paragraphs)
+      get a quiet fade or stay still.
+   3. prefers-reduced-motion kills everything. The entire
+      block below is gated on no-preference, so reduced-motion
+      users see elements at their resting state with zero
+      JS-dependent visibility. Failure mode is "looks normal."
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Base hidden state — only applies when motion is allowed.
+     Reduced-motion users skip this entirely and see elements
+     fully visible from the start (no flash-of-invisible). */
+  [data-reveal] {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  [data-reveal="fade"]      { /* opacity only */ }
+  [data-reveal="sticker"]   { transform: scale(0.86); }
+  [data-reveal="polaroid"]  { transform: translateY(6px) rotate(-1deg); }
+
+  /* Landed state — same end position regardless of variant. */
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Quiet fade — for h1/h2/section heads and large media. */
+  [data-reveal="fade"].is-in {
+    animation: revealFade 240ms ease-out both;
+  }
+  @keyframes revealFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Sticker pop — for kicker pills, FAQ icons, contact chips.
+     Slight overshoot mimics a sticker getting pressed onto paper. */
+  [data-reveal="sticker"].is-in {
+    animation: revealSticker 350ms cubic-bezier(.34, 1.56, .64, 1) both;
+  }
+  @keyframes revealSticker {
+    0%   { opacity: 0; transform: scale(0.86); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Polaroid drop — for the three character cards. Subtle: 6px
+     drop, ~1deg rotation. Tight 280ms per-card animation paired
+     with a 60ms stagger means all three finish landing within
+     ~400ms of the first card starting. */
+  [data-reveal="polaroid"].is-in {
+    animation: revealPolaroid 280ms cubic-bezier(.2, .7, .2, 1) both;
+  }
+  @keyframes revealPolaroid {
+    0%   { opacity: 0; transform: translateY(6px) rotate(-1deg); }
+    100% { opacity: 1; transform: translateY(0)   rotate(0deg); }
+  }
+
+  /* Marker strike — the yellow ::after behind "quack" in the hero.
+     Fires when the <em> gets .is-in. Slightly hand-drawn: a tiny
+     wobble at the start before the stroke commits, ~600ms total.
+     Note: the existing static rule rotates the pseudo by -1deg, so
+     every keyframe must preserve that rotate alongside the scaleX
+     we're animating. Origin is left so it strikes left-to-right. */
+  .hero__title em::after {
+    transform-origin: left center;
+    transform: scaleX(0) rotate(-1deg);
+  }
+  .hero__title em.is-in::after {
+    animation: revealMarker 600ms cubic-bezier(.5, 0, .2, 1) 700ms both;
+  }
+  @keyframes revealMarker {
+    0%   { transform: scaleX(0)    rotate(-1deg);   }
+    12%  { transform: scaleX(0.05) rotate(-1.6deg); } /* tiny wobble */
+    22%  { transform: scaleX(0.08) rotate(-0.6deg); } /* tiny wobble */
+    100% { transform: scaleX(1)    rotate(-1deg);   }
+  }
+}

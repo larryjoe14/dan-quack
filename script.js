@@ -138,8 +138,38 @@
     });
   }
 
-  /* Reveal-on-scroll has been intentionally removed to keep the
-     page robust: no flash-of-invisible-content, no JS-required visibility,
-     and screenshots / RSS / no-JS users always see all content. The hero's
-     subtle entrance animations are pure CSS and live in styles.css. */
+  /* ---------- Entry reveals — handmade pop / zine vocabulary ----------
+     Single IntersectionObserver, fires once per element, unobserves.
+     Stagger via data-reveal-delay (ms). Reduced-motion users skip
+     entirely: the CSS is gated behind @media (no-preference), so when
+     this code does nothing, elements are already visible at rest. The
+     marker-strike on the hero <em> is a special case — its keyframe
+     fires on the pseudo-element when the parent <em> gets .is-in. */
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const targets = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const delay = parseInt(el.dataset.revealDelay || '0', 10);
+        if (delay > 0) {
+          setTimeout(() => el.classList.add('is-in'), delay);
+        } else {
+          el.classList.add('is-in');
+        }
+        obs.unobserve(el);
+      });
+    }, {
+      // Trigger a touch before the element fully enters the viewport,
+      // so the animation feels like it's already underway by the time
+      // the element is in clear view.
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.05
+    });
+    targets.forEach(el => io.observe(el));
+  }
 })();
