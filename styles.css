@@ -564,13 +564,12 @@ h1, h2, h3 {
   background: var(--teal-tint);
   overflow: hidden;
 }
-/* All three characters are anchored with their feet at the bottom of the
-   frame (object-position + transform-origin both 'bottom center'), then
-   scaled per-character to compensate for the different amount of empty
-   space below the feet in each source PNG. Without this, Sable in
-   particular floats high in the frame and reads as smaller than the others
-   because her source PNG has ~24% empty space below her feet (vs ~11–13%
-   for Pippin and Chip). */
+/* The character PNGs have been normalized to a consistent canvas: each one
+   sits on a 1200x1200 transparent square with content height ~80% of the
+   canvas, content centered horizontally, and feet ~4% from the bottom.
+   That means a single set of CSS rules works identically for all three —
+   no per-character scales, no per-character positioning. The PNGs do the
+   work of making the characters read at the same visual weight. */
 .character__photo img {
   display: block;
   width: 100%;
@@ -579,20 +578,6 @@ h1, h2, h3 {
   object-position: center bottom;
   filter: drop-shadow(0 8px 18px rgba(26, 38, 56, 0.18));
   transition: transform 400ms ease;
-  transform-origin: bottom center;
-}
-.pack__grid .character:nth-child(1) .character__photo img {
-  /* Pippin: 11% bottom margin in source PNG, content fills 81% of height. */
-  transform: scale(0.85);
-}
-.pack__grid .character:nth-child(2) .character__photo img {
-  /* Chip: 13% bottom margin in source PNG, content fills 72% of height. */
-  transform: scale(0.92);
-}
-.pack__grid .character:nth-child(3) .character__photo img {
-  /* Sable: 24% bottom margin in source PNG, content fills only 56% of
-     height — needs the most aggressive upscale to match the others. */
-  transform: scale(1.25);
 }
 .character__caption {
   padding: 22px 24px 28px;
@@ -1124,12 +1109,11 @@ h1, h2, h3 {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
-  /* Desktop: characters are anchored with their feet at the bottom of the
-     4:5 photo frame (object-position + transform-origin both 'bottom center')
-     and scaled per-character to compensate for the different amount of empty
-     space below the feet in each source PNG. Sable's source PNG has
-     significantly more empty space below her feet than Pippin's or Chip's,
-     so she needs a more aggressive scale to read at the same visual weight. */
+  /* Desktop: 4:5 photo frame. Same simple rules as mobile — the normalized
+     PNGs (consistent canvas, content centered with feet near the bottom)
+     mean we don't need any per-character tweaks. object-fit: cover with
+     object-position: center bottom keeps every character's feet pinned to
+     the bottom of the frame. */
   .character__photo {
     aspect-ratio: 4 / 5;
   }
@@ -1137,20 +1121,6 @@ h1, h2, h3 {
     object-fit: cover;
     object-position: center bottom;
     filter: drop-shadow(0 6px 14px rgba(26, 38, 56, 0.22));
-    transform-origin: bottom center;
-  }
-  .pack__grid .character:nth-child(1) .character__photo img {
-    /* Pippin */
-    transform: scale(0.96);
-  }
-  .pack__grid .character:nth-child(2) .character__photo img {
-    /* Chip */
-    transform: scale(1.02);
-  }
-  .pack__grid .character:nth-child(3) .character__photo img {
-    /* Sable — same anchor (feet at bottom), bigger scale to match the
-       visual size of Pippin and Chip. */
-    transform: scale(1.45);
   }
 
   .gallery {

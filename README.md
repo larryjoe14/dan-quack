@@ -1,19 +1,30 @@
 # Quack, Quack, Pippin
 
-## What's new in this revision (May 7, 2026 — client round 2 feedback)
+## What's new in this revision (May 7, 2026 — client round 2 feedback, take 2)
 
-### Character cards (Meet the Pack)
-- **Sable now reads at the same size as Pippin and Chip on desktop**, with
-  her feet anchored to the bottom of her photo frame. The fix is two-fold:
-  every character now uses `object-position: center bottom` and
-  `transform-origin: bottom center`, so any per-character `scale()` grows
-  the character upward from its feet rather than outward from its center.
-  Then Sable specifically gets a more aggressive scale (1.45 desktop,
-  1.25 mobile) to compensate for the extra empty space below her feet
-  in the source PNG. The result: all three feet sit on the same baseline,
-  all three heads sit at roughly the same height.
-- Same approach applied on mobile so the pack reads consistently at every
-  breakpoint.
+### Character cards (Meet the Pack) — fixed for real this time
+The previous attempt tried to balance Pippin, Chip, and Sable with CSS
+`transform: scale()` and `object-position` tricks. That approach broke
+on both mobile (feet getting clipped at the bottom of the 1:1 frame) and
+desktop (Sable floating to the top of the 4:5 frame), because each
+character's source PNG had wildly different content placement and CSS
+can't cleanly compensate for that across multiple aspect ratios.
+
+The real fix: **normalize the source PNGs themselves.** Every character
+now sits on a consistent 1200x1200 transparent canvas with:
+- Content height = 80% of the canvas
+- Content centered horizontally
+- Feet ~4% from the bottom edge
+
+This means a single set of CSS rules (`object-fit: cover` +
+`object-position: center bottom`) works identically for all three
+characters at every aspect ratio. No per-character scales, no
+per-character positioning, no transforms. The PNGs do the work.
+
+Result on both mobile (1:1 frame) and desktop (4:5 frame):
+- All three feet sit on the same baseline
+- All three characters read at comparable visual weight
+- No clipped hats, no floating characters, no edge cases
 
 ### Adventures gallery & watch-preview frame — white banners removed
 - **Cropped baked-in white borders out of every gallery and scene image**.
@@ -29,14 +40,13 @@
   - `QPP_FROGGER.png` (1400x784 → 1376x768)
   - `QPP_CSAMPGROUND_NIGHT.png` (1064x1148 → 1044x1148)
   - `SCENE_fall.png` (1344x784 → 1344x768)
-  Frames now fill edge-to-edge with the actual artwork. No CSS changes
-  needed for this fix.
+  Frames now fill edge-to-edge with the actual artwork.
 
 ### Cache-bust
 - Bumped `?v=` query string on `styles.css` and `script.js` to
-  `20260507a` so browsers pull fresh CSS/JS on the next visit. Image
-  filenames are unchanged, so the long `assets/*` cache remains valid;
-  the new image bytes will be served via Netlify's deploy.
+  `20260507b`. Image filenames are unchanged so Netlify's long
+  `assets/*` cache stays valid; the new image bytes are picked up via
+  the new deploy.
 
 ---
 
