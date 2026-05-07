@@ -479,6 +479,30 @@ h1, h2, h3 {
   z-index: 1;
 }
 .about__content { }
+.about__title {
+  /* Slightly tighter line-height than the global .h2 to keep the two
+     stacked sentences feeling like one tight block. */
+  line-height: 1.08;
+  /* Carefully calibrated so "A whole world to discover." (the longer
+     of the two sentences) fits on a single line at every viewport from
+     480px up. The trickiest spot is ~960-1100px, where the 2-column
+     layout kicks in and the text column gets narrow before the viewport
+     has grown enough to compensate. We cap the max around 2.0rem (~32px)
+     so the longer sentence always fits in the column. */
+  font-size: clamp(1.7rem, 2.2vw + 0.4rem, 2.0rem);
+}
+.about__title-line {
+  display: block;
+}
+/* From 480px up there's enough horizontal room for "A whole world to
+   discover." to fit on a single line at the clamp's lower bound, so we
+   pin each sentence to one line. Below 480px, we let them wrap naturally
+   so the type doesn't overflow. */
+@media (min-width: 480px) {
+  .about__title-line {
+    white-space: nowrap;
+  }
+}
 .about__lede {
   font-size: 1.12rem;
   color: var(--ink-2);
@@ -559,17 +583,41 @@ h1, h2, h3 {
 .character__photo {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  /* 4:5 portrait aspect ratio matches the 1200x1500 source canvas exactly,
+     so 'cover' fills the frame edge-to-edge without clipping any part of
+     the character on any frame size. */
+  aspect-ratio: 4 / 5;
   /* Solid on-brand pale teal — no white/gray gradient, fills the whole shape */
   background: var(--teal-tint);
   overflow: hidden;
 }
-/* The character PNGs have been normalized to a consistent canvas: each one
-   sits on a 1200x1200 transparent square with content height ~80% of the
-   canvas, content centered horizontally, and feet ~4% from the bottom.
-   That means a single set of CSS rules works identically for all three —
-   no per-character scales, no per-character positioning. The PNGs do the
-   work of making the characters read at the same visual weight. */
+/* A subtle ground shadow gradient anchored to the bottom of every photo
+   frame — painted by the CSS, identical for all three characters. The
+   painted shadows have been stripped from each PNG, so this CSS shadow
+   is the single source of truth for the ground plane. All three feet
+   sit on the same baseline (~92% from top of frame), so the gradient
+   visually grounds them together. */
+.character__photo::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14%;
+  background: radial-gradient(
+    ellipse 50% 80% at 50% 100%,
+    rgba(15, 107, 107, 0.22) 0%,
+    rgba(15, 107, 107, 0.10) 40%,
+    rgba(15, 107, 107, 0) 75%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+/* The character PNGs are normalized to a consistent 1200x1500 (4:5)
+   canvas with all painted shadows erased and feet pinned at y=1380
+   (~92% from top). Pippin is sized at 100% body height, Chip 95%,
+   Sable 88% — proportional to the relative real-world sizes of a
+   duckling, beaver kit, and raccoon kit, so they look like a believable
+   trio of friends. With the source canvas matching the frame's 4:5
+   aspect ratio, 'cover' fills the frame perfectly without clipping. */
 .character__photo img {
   display: block;
   width: 100%;
@@ -578,6 +626,8 @@ h1, h2, h3 {
   object-position: center bottom;
   filter: drop-shadow(0 8px 18px rgba(26, 38, 56, 0.18));
   transition: transform 400ms ease;
+  position: relative;
+  z-index: 0;
 }
 .character__caption {
   padding: 22px 24px 28px;
@@ -1109,11 +1159,10 @@ h1, h2, h3 {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
-  /* Desktop: 4:5 photo frame. Same simple rules as mobile — the normalized
-     PNGs (consistent canvas, content centered with feet near the bottom)
-     mean we don't need any per-character tweaks. object-fit: cover with
-     object-position: center bottom keeps every character's feet pinned to
-     the bottom of the frame. */
+  /* Desktop: same 4:5 photo frame as mobile. Source PNGs are 1200x1500 (4:5)
+     so 'cover' fills the frame edge-to-edge without clipping. The CSS-painted
+     ground shadow (.character__photo::after) gives all three a shared,
+     consistent ground plane. */
   .character__photo {
     aspect-ratio: 4 / 5;
   }

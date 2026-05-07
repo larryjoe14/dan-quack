@@ -1,8 +1,67 @@
 # Quack, Quack, Pippin
 
-## What's new in this revision (May 7, 2026 — client round 2 feedback, take 2)
+## What's new in this revision (May 7, 2026 — client round 2 feedback, take 3)
 
-### Character cards (Meet the Pack) — fixed for real this time
+### About headline — clean two-line break
+- Restructured `<h2>Three friends. One pack. A whole world to discover.</h2>`
+  with each sentence wrapped in its own `<span class="about__title-line">`
+  with `white-space: nowrap` (at 480px+), so each sentence stays on one
+  line at all desktop and tablet widths. On phones below 480px the
+  sentences wrap naturally.
+- Tuned the H2 font-size with a tighter clamp (`clamp(1.7rem, 2.2vw + 0.4rem, 2.0rem)`)
+  so the longer sentence "A whole world to discover." always fits in
+  whatever column width the layout gives it. The trickiest spot is
+  ~960-1100px viewports where the 2-column layout kicks in but the
+  text column is still narrow; the smaller cap prevents wrapping there.
+
+### Character cards — same ground plane, no painted shadows, naturally proportional
+
+The previous round still had two issues: heads getting clipped on mobile,
+and Sable looking like she was floating above the others on desktop
+because her PNG had no painted ground shadow while Pippin and Chip did.
+
+Four coordinated fixes this round:
+
+1. **Erased painted shadows from all three character PNGs.** Pippin had
+   a prominent gray shadow puddle extending down-right from his feet;
+   Chip and Sable had smaller ones. The shadow-stripping is conservative
+   — it only operates in the bottom 20% of each character's body height,
+   which preserves props higher up (Pippin's magnifying glass, Chip's
+   pencil and tail, Sable's tail).
+
+2. **Re-exported PNGs on a 1200×1500 (4:5) canvas** that exactly matches
+   the CSS photo frame's aspect ratio. With `object-fit: cover` on a
+   matching ratio, every character fills the frame edge-to-edge with
+   zero clipping at any breakpoint — no more cut-off heads on mobile.
+
+3. **Pinned all three feet at exactly y=1380** (~92% from the top of
+   each canvas). This is pixel-identical across all three PNGs, so when
+   the CSS uses `object-position: center bottom`, all three feet land on
+   the exact same baseline in their photo frames. Sable, Pippin, and
+   Chip stand on the same ground line — guaranteed.
+
+4. **Sized characters proportionally** to their real-world relative
+   sizes: Pippin (duckling) at 100% body height, Chip (beaver kit) at
+   95%, Sable (raccoon kit) at 88%. Sable now reads as naturally
+   smaller — a believable trio of forest-friend sizes — rather than
+   "centered weirdly" the way she did before.
+
+5. **Added a unified CSS-painted ground shadow** at the bottom of every
+   photo frame (`.character__photo::after`) with a soft elliptical
+   radial-gradient in brand teal. With the painted PNG shadows erased,
+   this CSS shadow is the single source of truth for the ground plane,
+   keeping all three characters visually anchored to the same ground.
+
+### Cache-bust
+- Bumped `?v=` query string on `styles.css` and `script.js` to
+  `20260507d`. Image filenames are unchanged so Netlify's long
+  `assets/*` cache stays valid; the new image bytes are picked up via
+  the new deploy.
+
+---
+
+## Previous revision (May 7, 2026 — client round 2 feedback, take 2)
+
 The previous attempt tried to balance Pippin, Chip, and Sable with CSS
 `transform: scale()` and `object-position` tricks. That approach broke
 on both mobile (feet getting clipped at the bottom of the 1:1 frame) and
@@ -10,21 +69,15 @@ desktop (Sable floating to the top of the 4:5 frame), because each
 character's source PNG had wildly different content placement and CSS
 can't cleanly compensate for that across multiple aspect ratios.
 
-The real fix: **normalize the source PNGs themselves.** Every character
-now sits on a consistent 1200x1200 transparent canvas with:
+The fix from that round: **normalize the source PNGs themselves.** Every
+character now sits on a consistent 1200x1200 transparent canvas with:
 - Content height = 80% of the canvas
 - Content centered horizontally
 - Feet ~4% from the bottom edge
 
-This means a single set of CSS rules (`object-fit: cover` +
-`object-position: center bottom`) works identically for all three
-characters at every aspect ratio. No per-character scales, no
-per-character positioning, no transforms. The PNGs do the work.
-
-Result on both mobile (1:1 frame) and desktop (4:5 frame):
-- All three feet sit on the same baseline
-- All three characters read at comparable visual weight
-- No clipped hats, no floating characters, no edge cases
+This was a step in the right direction but didn't solve the missing
+ground-shadow problem or the clipped-head problem on mobile, which
+this revision addresses.
 
 ### Adventures gallery & watch-preview frame — white banners removed
 - **Cropped baked-in white borders out of every gallery and scene image**.
@@ -41,12 +94,6 @@ Result on both mobile (1:1 frame) and desktop (4:5 frame):
   - `QPP_CSAMPGROUND_NIGHT.png` (1064x1148 → 1044x1148)
   - `SCENE_fall.png` (1344x784 → 1344x768)
   Frames now fill edge-to-edge with the actual artwork.
-
-### Cache-bust
-- Bumped `?v=` query string on `styles.css` and `script.js` to
-  `20260507b`. Image filenames are unchanged so Netlify's long
-  `assets/*` cache stays valid; the new image bytes are picked up via
-  the new deploy.
 
 ---
 
