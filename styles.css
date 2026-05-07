@@ -564,38 +564,35 @@ h1, h2, h3 {
   background: var(--teal-tint);
   overflow: hidden;
 }
-/* The character PNGs now have transparent backgrounds, so we can size each
-   one independently to give all three the same visual presence in their card.
-   Pippin's source has no top margin (hat touches edge); Chip and Sable have
-   varying breathing room above their heads. We scale each one to compensate
-   so the heads sit roughly the same height in every frame. */
+/* All three characters are anchored with their feet at the bottom of the
+   frame (object-position + transform-origin both 'bottom center'), then
+   scaled per-character to compensate for the different amount of empty
+   space below the feet in each source PNG. Without this, Sable in
+   particular floats high in the frame and reads as smaller than the others
+   because her source PNG has ~24% empty space below her feet (vs ~11–13%
+   for Pippin and Chip). */
 .character__photo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center bottom;
   filter: drop-shadow(0 8px 18px rgba(26, 38, 56, 0.18));
   transition: transform 400ms ease;
+  transform-origin: bottom center;
 }
 .pack__grid .character:nth-child(1) .character__photo img {
-  /* Pippin */
-  transform: scale(1.18);
-  transform-origin: center 35%;
-  object-position: center 22%;
+  /* Pippin: 11% bottom margin in source PNG, content fills 81% of height. */
+  transform: scale(0.85);
 }
 .pack__grid .character:nth-child(2) .character__photo img {
-  /* Chip */
-  transform: scale(1.18);
-  transform-origin: center 40%;
-  object-position: center 14%;
+  /* Chip: 13% bottom margin in source PNG, content fills 72% of height. */
+  transform: scale(0.92);
 }
 .pack__grid .character:nth-child(3) .character__photo img {
-  /* Sable — needs the most upscaling because her source PNG has the most
-     empty space above her head. */
-  transform: scale(1.28);
-  transform-origin: center 38%;
-  object-position: center 20%;
+  /* Sable: 24% bottom margin in source PNG, content fills only 56% of
+     height — needs the most aggressive upscale to match the others. */
+  transform: scale(1.25);
 }
 .character__caption {
   padding: 22px 24px 28px;
@@ -1127,34 +1124,33 @@ h1, h2, h3 {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
-  /* Desktop: characters now have transparent backgrounds and fill the
-     whole shape over the brand teal-tint backdrop. Each character is
-     scaled and positioned to give all three the same visual weight. */
+  /* Desktop: characters are anchored with their feet at the bottom of the
+     4:5 photo frame (object-position + transform-origin both 'bottom center')
+     and scaled per-character to compensate for the different amount of empty
+     space below the feet in each source PNG. Sable's source PNG has
+     significantly more empty space below her feet than Pippin's or Chip's,
+     so she needs a more aggressive scale to read at the same visual weight. */
   .character__photo {
     aspect-ratio: 4 / 5;
   }
   .character__photo img {
     object-fit: cover;
-    object-position: center 12%;
+    object-position: center bottom;
     filter: drop-shadow(0 6px 14px rgba(26, 38, 56, 0.22));
+    transform-origin: bottom center;
   }
   .pack__grid .character:nth-child(1) .character__photo img {
     /* Pippin */
-    transform: scale(1.22);
-    transform-origin: center 32%;
-    object-position: center 18%;
+    transform: scale(0.96);
   }
   .pack__grid .character:nth-child(2) .character__photo img {
     /* Chip */
-    transform: scale(1.20);
-    transform-origin: center 38%;
-    object-position: center 10%;
+    transform: scale(1.02);
   }
   .pack__grid .character:nth-child(3) .character__photo img {
-    /* Sable — match the other two */
-    transform: scale(1.30);
-    transform-origin: center 36%;
-    object-position: center 16%;
+    /* Sable — same anchor (feet at bottom), bigger scale to match the
+       visual size of Pippin and Chip. */
+    transform: scale(1.45);
   }
 
   .gallery {

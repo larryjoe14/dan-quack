@@ -1,6 +1,46 @@
 # Quack, Quack, Pippin
 
-## What's new in this revision (May 1, 2026 — client round 1 feedback)
+## What's new in this revision (May 7, 2026 — client round 2 feedback)
+
+### Character cards (Meet the Pack)
+- **Sable now reads at the same size as Pippin and Chip on desktop**, with
+  her feet anchored to the bottom of her photo frame. The fix is two-fold:
+  every character now uses `object-position: center bottom` and
+  `transform-origin: bottom center`, so any per-character `scale()` grows
+  the character upward from its feet rather than outward from its center.
+  Then Sable specifically gets a more aggressive scale (1.45 desktop,
+  1.25 mobile) to compensate for the extra empty space below her feet
+  in the source PNG. The result: all three feet sit on the same baseline,
+  all three heads sit at roughly the same height.
+- Same approach applied on mobile so the pack reads consistently at every
+  breakpoint.
+
+### Adventures gallery & watch-preview frame — white banners removed
+- **Cropped baked-in white borders out of every gallery and scene image**.
+  Each PNG had ~15–16px of pure white at the bottom (and a couple had
+  ~24px on the right) that was rendering as a thick white banner inside
+  the rounded frame, breaking the immersion of the artwork. Affected
+  images:
+  - `QPP_MOUNTSIN_CLIMB.png` (1344x784 → 1344x769)
+  - `QPP_JUST_WHAT_THE_DOC_ORDERED.png` (1344x784 → 1344x768)
+  - `QPP_OCEAN_FRIENDS.png` (1400x784 → 1376x769)
+  - `QPP_CLIMBING_TREES.png` (1344x784 → 1344x768)
+  - `QPP_LADYBUG.png` (1344x784 → 1344x769)
+  - `QPP_FROGGER.png` (1400x784 → 1376x768)
+  - `QPP_CSAMPGROUND_NIGHT.png` (1064x1148 → 1044x1148)
+  - `SCENE_fall.png` (1344x784 → 1344x768)
+  Frames now fill edge-to-edge with the actual artwork. No CSS changes
+  needed for this fix.
+
+### Cache-bust
+- Bumped `?v=` query string on `styles.css` and `script.js` to
+  `20260507a` so browsers pull fresh CSS/JS on the next visit. Image
+  filenames are unchanged, so the long `assets/*` cache remains valid;
+  the new image bytes will be served via Netlify's deploy.
+
+---
+
+## Previous revision (May 1, 2026 — client round 1 feedback)
 
 ### Character cards (Meet the Pack)
 - **Replaced the gray-to-white gradient backdrop** behind each character
